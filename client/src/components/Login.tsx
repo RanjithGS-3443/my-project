@@ -50,13 +50,14 @@ const Login: React.FC = () => {
     <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-900 dark:to-gray-800 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8 bg-white dark:bg-gray-900 p-8 rounded-xl shadow-2xl">
         <div className="text-center">
-          <div className="flex justify-center">
-            <img
-              src="https://www.svgrepo.com/show/529279/chat-round-dots.svg"
-              alt="Logo"
-              className="h-12 w-12 mb-4 text-blue-500"
-            />
-          </div>
+        <div className="flex justify-center">
+  <img
+    src="/logo.png" // Image inside public folder
+    alt="Logo"
+    className="h-12 w-12 mb-4 text-blue-500"
+  />
+</div>
+
           <h2 className="text-3xl font-extrabold text-gray-900 dark:text-white">
             Welcome back
           </h2>
