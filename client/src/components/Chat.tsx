@@ -17,15 +17,15 @@ interface Message {
   timestamp: number;
 }
 
-interface Chat {
+interface ChatType {
   id: string;
   title: string;
   messages: Message[];
 }
 
 const Chat: React.FC = () => {
-  const [chats, setChats] = useState<Chat[]>([]);
-  const [currentChat, setCurrentChat] = useState<Chat | null>(null);
+  const [chats, setChats] = useState<ChatType[]>([]);
+  const [currentChat, setCurrentChat] = useState<ChatType | null>(null);
   const [input, setInput] = useState('');
   const [isTyping, setIsTyping] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -43,8 +43,8 @@ const Chat: React.FC = () => {
   };
 
   // Initialize a new chat
-  const createNewChat = () => {
-    const newChat: Chat = {
+  const createNewChat = React.useCallback(() => {
+    const newChat: ChatType = {
       id: Date.now().toString(),
       title: 'New Chat',
       messages: [{
@@ -55,15 +55,21 @@ const Chat: React.FC = () => {
     };
     setChats(prevChats => [...prevChats, newChat]);
     setCurrentChat(newChat);
-  };
+  }, []);
 
   // Create initial chat if none exists
   useEffect(() => {
+    // Redirect if not authenticated
+    if (!currentUser) {
+      navigate('/login');
+      return;
+    }
+
     // Initialize chat history
     if (chats.length === 0) {
       createNewChat();
     }
-  }, [chats.length, createNewChat]);
+  }, [chats.length, createNewChat, currentUser, navigate]);
 
   useEffect(() => {
     // Scroll to bottom when messages change
@@ -212,6 +218,15 @@ const Chat: React.FC = () => {
               {currentChat?.title || 'New Chat'}
             </h2>
             <div className="flex items-center gap-4">
+              <button
+                onClick={handleLogout}
+                className="p-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors mr-2"
+                title="Logout"
+              >
+                <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                </svg>
+              </button>
               <button
                 onClick={() => document.documentElement.classList.toggle('dark')}
                 className="p-2 text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
