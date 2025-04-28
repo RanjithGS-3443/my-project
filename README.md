@@ -1,4 +1,4 @@
-# ChatGPT Clone
+# helppai
 
 A full-featured ChatGPT clone built with React, Node.js, and Firebase.
 
