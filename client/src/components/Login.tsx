@@ -62,7 +62,7 @@ const Login: React.FC = () => {
             Welcome back
           </h2>
           <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
-            Sign in to continue to ChatGPT Clone
+            Sign in to continue to helppai
           </p>
         </div>
         {error && (
